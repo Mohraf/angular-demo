@@ -28,11 +28,13 @@ export class AuthService {
       .post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token);
-        this.getUserProfile(res.id).subscribe((res) => {
-          this.currentUser = res;
-          this.userId = res.id;
-          this.router.navigate(['user-profile/' + this.userId]);
-        });
+        this.router.navigate(['home']);
+        // this.getUserProfile(res.id).subscribe((res) => {
+        //   this.currentUser = res;
+        //   this.userId = res.id;
+        //   this.router.navigate(['home']);
+          // this.router.navigate(['user-profile/' + this.userId]);
+        // });
       });
   }
   getToken() {
