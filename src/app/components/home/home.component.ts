@@ -11,11 +11,14 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   users!: User[];
+  lat: any;
+  lng: any;
 
   constructor(private http: HttpClient, private authService: AuthService, public router: Router) { }
 
   ngOnInit() {
     this.users = []
+    this.getLocation()
   }
 
   public getUsers(){
@@ -28,6 +31,24 @@ export class HomeComponent implements OnInit {
   viewProfile(id: any){
     this.authService.getUserProfile(id);
     this.router.navigate(['user-profile/' + id]);
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: any) => {
+        if (position) {
+          console.log("Latitude: " + position.coords.latitude +
+            "Longitude: " + position.coords.longitude);
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+          console.log(this.lat);
+          console.log(this.lat);
+        }
+      },
+        (error: any) => console.log(error));
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   }
 
 }
