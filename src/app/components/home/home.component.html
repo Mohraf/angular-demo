@@ -6,10 +6,11 @@
   </button>
 
   <div class="row">
-    <div class="col-lg-3" *ngFor="let user of users">
+    <div class="col-lg-3 p-3 mx-1 mt-3 border border-rounded" *ngFor="let user of users">
       <h3>{{user.first_name}} {{user.last_name}}</h3>
       <p>{{user.email}}</p>
-      <img src="{{user.avatar}}" alt="Image">
+      <button (click)="viewProfile(user.id)" class="btn btn-primary">View profile</button>
+      <img class="p-3" src="{{user.avatar}}" alt="Image">
     </div>
   </div>
 </div>
