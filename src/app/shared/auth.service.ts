@@ -60,6 +60,18 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
+
+  getUsers(): Observable<any> {
+    let api = `${this.endpoint}/users`;
+    return this.http.get(api, {headers:this.headers}).pipe(
+      map((res: any) => {
+        const data = res.json();
+        return data.data || {};
+      }),
+      catchError(this.handleError)
+    )
+  }
+
   // Error
   handleError(error: HttpErrorResponse) {
     let msg = '';
