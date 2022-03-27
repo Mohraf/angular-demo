@@ -15,6 +15,7 @@ export class AuthService {
   endpoint: string = 'https://reqres.in/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
+  userId = null;
   constructor(private http: HttpClient, public router: Router) {}
   // Sign-up
   signUp(user: User): Observable<any> {
@@ -27,9 +28,10 @@ export class AuthService {
       .post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token);
-        this.getUserProfile(res._id).subscribe((res) => {
+        this.getUserProfile(res.id).subscribe((res) => {
           this.currentUser = res;
-          this.router.navigate(['user-profile/' + res.msg._id]);
+          this.userId = res.id;
+          this.router.navigate(['user-profile/' + this.userId]);
         });
       });
   }
